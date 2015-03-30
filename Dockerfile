@@ -5,7 +5,7 @@ ENV PATH $CATALINA_HOME/bin:$PATH
 RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
 
-# see https://www.apache.org/dist/tomcat/tomcat-8/KEYS
+# See https://www.apache.org/dist/tomcat/tomcat-8/KEYS
 RUN gpg --keyserver pool.sks-keyservers.net --recv-keys \
 	05AB33110949707C93A279E3D3EFE6B686867BA6 \
 	07E48665A34DCAFAE522E5E6266191C37C037D42 \
@@ -24,6 +24,7 @@ ENV TOMCAT_MAJOR 8
 ENV TOMCAT_VERSION 8.0.20
 ENV TOMCAT_TGZ_URL https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
+# Get tomcat, verify it, and install it
 RUN curl -SL "$TOMCAT_TGZ_URL" -o tomcat.tar.gz \
 	&& curl -SL "$TOMCAT_TGZ_URL.asc" -o tomcat.tar.gz.asc \
 	&& gpg --verify tomcat.tar.gz.asc \
@@ -32,8 +33,10 @@ RUN curl -SL "$TOMCAT_TGZ_URL" -o tomcat.tar.gz \
 	&& rm tomcat.tar.gz* \
 	&& rm webapps/ROOT/index.jsp
 
+# Change the home page to our custom version
 COPY index.jsp webapps/ROOT/
 
+# Tomcat will be listening on port 8080
 EXPOSE 8080
 
 CMD ["catalina.sh", "run"]
