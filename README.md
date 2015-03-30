@@ -1,4 +1,4 @@
-# Stelligent Mini Project
+# Stelligent Mini Project - Tomcat
 
 Provision a system running a web server.
 
