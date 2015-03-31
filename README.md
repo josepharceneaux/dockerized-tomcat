@@ -20,3 +20,5 @@ $ docker run -it --rm -P -p 80:8080 josepharceneaux/tomcat-server:latest
 ```
 
 This starts the container and maps port 8080 on it to port 80 on the host. This can also be done via ssh, salt, et al.
+
+There is currently a container running on Amazon at [http://52.4.210.206](http://52.4.210.206).
